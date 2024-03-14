@@ -1,5 +1,6 @@
 package com.example.parouimpar
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import com.example.parouimpar.databinding.ActivityMainBinding
 import kotlin.random.Random
@@ -7,15 +8,44 @@ import kotlin.random.Random
 class MainActivity : ComponentActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private var valorPlayer: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        calculoResultado()
-
-        binding.umTextView.setOnClickListener()
+        binding.umTextView.setOnClickListener {
+            valorPlayer = 1
+        }
+        binding.doisTextView.setOnClickListener{
+            valorPlayer = 2
+        }
+        binding.tresTextView.setOnClickListener{
+            valorPlayer = 3
+        }
+        binding.quatroTextView.setOnClickListener{
+            valorPlayer = 4
+        }
+        binding.cincoTextView.setOnClickListener{
+            valorPlayer = 5
+        }
+        binding.imparTextView.setOnClickListener {
+            if (valorPlayer == null){
+                Toast.makeText(this, "Escolha um número primeiro...", Toast.LENGTH_LONG).show()
+            }else{
+                val numeroPlayer: Int = valorPlayer!!
+                calculoResultado("Ímpar", numeroPlayer)
+            }
+        }
+        binding.parTextView.setOnClickListener {
+            if (valorPlayer == null){
+                Toast.makeText(this, "Escolha um número primeiro...", Toast.LENGTH_LONG).show()
+            }else{
+                val numeroPlayer: Int = valorPlayer!!
+                calculoResultado("Par", numeroPlayer)
+            }
+        }
     }
     private fun escolhaComputador(): Int{
         val escolha: Int = Random.nextInt(5)
@@ -23,11 +53,14 @@ class MainActivity : ComponentActivity() {
         return escolha
     }
 
-    private fun calculoResultado(parImpar: String, escolhaPlayer: Int): String{
+    private fun calculoResultado(escolhaParOuImpar: String, escolhaPlayer: Int): String{
         val escolhaPC: Int = escolhaComputador()
         val soma: Int = escolhaPlayer + escolhaPC
-        if (soma % 2 = 0){
-            
+        if ((soma % 2 == 0 && escolhaParOuImpar == "Par") || (soma % 2 != 0 && escolhaParOuImpar == "Ímpar")) {
+            Toast.makeText(this, "Você Ganhou!", Toast.LENGTH_LONG).show()
+            return "Você Ganhou!"
         }
+        Toast.makeText(this, "Você Perdeu...", Toast.LENGTH_LONG).show()
+        return "Você Perdeu..."
     }
 }
