@@ -17,18 +17,23 @@ class MainActivity : ComponentActivity() {
 
         binding.umTextView.setOnClickListener {
             valorPlayer = 1
+            binding.numeroTextView.text = "1"
         }
         binding.doisTextView.setOnClickListener{
             valorPlayer = 2
+            binding.numeroTextView.text = "2"
         }
         binding.tresTextView.setOnClickListener{
             valorPlayer = 3
+            binding.numeroTextView.text = "3"
         }
         binding.quatroTextView.setOnClickListener{
             valorPlayer = 4
+            binding.numeroTextView.text = "4"
         }
         binding.cincoTextView.setOnClickListener{
             valorPlayer = 5
+            binding.numeroTextView.text = "5"
         }
         binding.imparTextView.setOnClickListener {
             if (valorPlayer == null){
@@ -57,10 +62,14 @@ class MainActivity : ComponentActivity() {
         val escolhaPC: Int = escolhaComputador()
         val soma: Int = escolhaPlayer + escolhaPC
         if ((soma % 2 == 0 && escolhaParOuImpar == "Par") || (soma % 2 != 0 && escolhaParOuImpar == "Ímpar")) {
-            Toast.makeText(this, "Você Ganhou!", Toast.LENGTH_LONG).show()
-            return "Você Ganhou!"
+            val resultado = "Você Ganhou!!"
+            binding.resultadoTextView.text = resultado
+            Toast.makeText(this, resultado, Toast.LENGTH_LONG).show()
+            return resultado
         }
-        Toast.makeText(this, "Você Perdeu...", Toast.LENGTH_LONG).show()
-        return "Você Perdeu..."
+        val resultado = "Você Perdeu..."
+        binding.resultadoTextView.text = resultado
+        Toast.makeText(this, resultado, Toast.LENGTH_LONG).show()
+        return resultado
     }
 }
